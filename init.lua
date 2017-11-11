@@ -100,7 +100,11 @@ function diet.item_eat(max, replace_with_item, poisen, heal)
 			h = h + points
 			if h > 30 then h = 30 end
 			hbhunger.hunger[name] = h
-			hbhunger.set_hunger_raw(user)
+
+			local set_hunger = hbhunger.set_hunger_raw
+			if not set_hunger then set_hunger = hbhunger.set_hunger end
+
+			set_hunger(user)
 
 			-- healing
 			local hp = user:get_hp()
